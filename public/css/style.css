@@ -1,0 +1,108 @@
+@font-face{
+    font-family: GuilleFont;
+    src: url("../fonts/Cairo-VariableFont_wght.ttf")
+}
+
+@media (min-width: 768px) {
+    .encabezado{
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        }
+    }
+
+*{
+    font-family: GuilleFont;
+}
+.encabezado{
+    background-color: rgba(170, 170, 170, 0.5);
+    }
+.pie {
+    background-color: rgba(170, 170, 170, 0.5);
+    }
+.logo {
+    color: rgb(0, 0, 0);
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.nav-item a .disabled{
+    color: rgb(170, 170, 170);
+}
+
+.nav-item a {
+    color:rgb(129, 136, 59)
+}
+
+.foto {
+    width: 100% !important;
+}
+
+
+.tit-carou {
+    z-index: 10000;
+    background: rgb(170,170,170,0.5);
+    color:black;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+/* footer {
+    width: 80%;
+    overflow:hidden;
+    background: rgba(97, 91, 33, 0.5);
+    margin-top: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    padding-left: 50px;
+    padding-right: 50px; 
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    opacity: 0.4;
+}
+
+footer .logo {
+    line-height: 50px;
+    float: left;
+    margin-left: 50px;
+}
+
+footer .logo a {
+    border-radius: 5px;
+    transition: all 200ms;
+}
+
+footer .logo a:hover {
+    background-color: rgb(250, 250, 226);
+    border-radius: 5px;
+    transition: all 200ms;
+}
+
+footer a {
+    color: black;
+    text-decoration: none;
+}
+
+footer .navbar {
+    float:right;
+    height: 50px;
+    margin-right: 50px;
+    }
+
+footer .navbar a {
+    display: inline-block;
+    padding-top: 5px;
+    padding-left: 15px;
+    margin: auto;
+}
+
+footer .navbar a img:hover {
+    background-color: rgb(250, 250, 226);
+    border-radius: 5px;
+    transition: all 200ms;
+    }
+
+footer .navbar a img {
+    height: 40px;
+} */
+
