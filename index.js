@@ -8,7 +8,7 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 
 //Conectamos la app a una Base de Datos.
-const conexion = mysql.createConnection({
+/*const conexion = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
@@ -21,7 +21,7 @@ const conectar = (
         if(error) throw error;
         console.log('base de datos conectada');
     })
-);
+);*/
 
 
 //configuramos la vista de la aplicacion
@@ -48,14 +48,14 @@ app.get('/statement', (req, res)=>{
 })
 app.get('/galerias', (req, res)=>{
     let sql = "SELECT * FROM MENSAJES";
-    let query = conexion.query(sql, (err, results) => {
-        console.log(results);
-        if(err) throw err;
-        res.render('galerias', {
-            titulo: 'GALERIAS',
-            results,
-        }) 
-    })
+    // let query = conexion.query(sql, (err, results) => {
+    //     console.log(results);
+    //     if(err) throw err;
+    //     res.render('galerias', {
+    //         titulo: 'GALERIAS',
+    //         results,
+    //     }) 
+    // })
 })
 app.get('/contacto', (req, res)=>{
     res.render('contacto', {titulo: 'CONTACTANOS'})
@@ -84,13 +84,13 @@ app.post('/contacto', (req, res) =>{
             mensaje: mensaje,
         }
         let sql = "INSERT INTO MENSAJES SET ?";
-        let query = conexion.query(sql, data, (err, results) => {
-            if(err) throw err;
-            res.render('contacto', {
-                titulo: 'CONTACTANOS',
-                validacion
-            }) 
-        })
+        // let query = conexion.query(sql, data, (err, results) => {
+        //     if(err) throw err;
+        //     res.render('contacto', {
+        //         titulo: 'CONTACTANOS',
+        //         validacion
+        //     }) 
+        // })
         
     }
 })
