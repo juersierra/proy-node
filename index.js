@@ -63,10 +63,10 @@ app.get('/contacto', (req, res)=>{
 //verbo http para recibir datos
 app.post('/contacto', (req, res) =>{
     // res.send('Tus datos han sido recibidos')
-    console.log(req.body.nombre);
-    console.log(req.body.email);
-    console.log(req.body.asunto);    
-    console.log(req.body.mensaje);
+    // console.log(req.body.nombre);
+    // console.log(req.body.email);
+    // console.log(req.body.asunto);    
+    // console.log(req.body.mensaje);
     const {nombre, asunto, email, mensaje} = req.body;
     if (req.body.nombre == ""){
         let validacion = "Faltan datos"
