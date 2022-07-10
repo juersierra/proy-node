@@ -81,44 +81,7 @@ app.post('/delete', (req, res) =>{
     })
 })
 
-// app.post('/mail', (req, res =>){
-
-//     const {usuario, email} = req.body;
-//     console.log(usuario);
-//     console.log(email);
-
-//     if(usuario == ""||email == ""){
-//         let validacion = "Faltan datos";
-//         res.render('mail', {
-//             titulo: 'envia un mail',
-//             validacion
-//         })
-//     }else{
-//         console.log(usuario);
-//         console.log(email);
-
-//         async function main(){
-//             let transporter = nodemailer.createTransport({
-//                 host: 'smtp.gmail.com',
-//                 port: '465',
-//                 secure: 'true',
-//                 auth:{
-//                     user: 'juersierra@gmail.com',
-//                     password: 'cnktbshzdllmrtif',
-//                 }
-//             })
-
-//             let info = await transporter.sendMail({
-//                 from: 'juersierra@gmail.com',
-//             })
-//         }
-//         res.render('index',{
-//             titulo:'bienvenido a nuestra app',
-//             to: `${email}`,
-//             subject: 'Gracias por tu compra',
-//             html: `Gracias por confiar en nosotros para la compra de un lavarropas`,
-//         })
-//     }
+    
     
     
 // })
