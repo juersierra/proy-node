@@ -1,0 +1,30 @@
+<main class="container">
+    <h1 class="d-inline-block px-2"> <div class="border-top border-bottom p-0 m-0">{{titulo}}</h1>
+    <form action="./contacto" method="post" class="row px-2">
+        <div class="col-12 col-xl-4">
+            <label for="inputNombre" class="form-label border-top border-bottom">Nombre</label>
+            <input type="text" class="form-control mb-2" name="nombre" id="inputNombre" placeholder="Nombre">
+        </div>
+        <div class="col-12 col-xl-4">
+            <label for="inputEmail" class="form-label border-top border-bottom">Email</label>
+            <input type="email" class="form-control mb-2" name="email" id="inputEmail" placeholder="ejemplo@correo.com">
+        </div>
+        </div>
+        <div class="col-12 col-xl-8">
+            <label for="inputAsunto" class="form-label border-top border-bottom">Asunto</label>
+            <input type="text" class="form-control mb-2" name="asunto" id="inputAsunto" placeholder="Asunto">
+        </div>
+        <div class="col-12">
+            <label for="inputTexto" class="form-label border-top border-bottom">Mensaje</label>
+            <textarea class="form-control mb-2" name="mensaje" id="inputTexto" rows="5" placeholder="Su mensaje aquí"></textarea>
+          </div>
+        <div class="col-12" id="btn-envio">
+            <input type="submit" class="btn btn-primary" value="Enviar Mensaje">
+        </div>
+    </form>
+    <div class="text-center validacion">
+        <h2 class="text-danger">
+            {{validacion}}
+        </h2>
+    </div>
+</main>

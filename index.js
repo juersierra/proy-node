@@ -8,7 +8,7 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 
 //Conectamos la app a una Base de Datos.
-/*const conexion = mysql.createConnection({
+const conexion = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
@@ -21,7 +21,7 @@ const conectar = (
         if(error) throw error;
         console.log('base de datos conectada');
     })
-);*/
+);
 
 
 //configuramos la vista de la aplicacion
@@ -48,15 +48,81 @@ app.get('/statement', (req, res)=>{
 })
 app.get('/galerias', (req, res)=>{
     let sql = "SELECT * FROM MENSAJES";
-    // let query = conexion.query(sql, (err, results) => {
-    //     console.log(results);
-    //     if(err) throw err;
-    //     res.render('galerias', {
-    //         titulo: 'GALERIAS',
-    //         results,
-    //     }) 
-    // })
+    let query = conexion.query(sql, (err, results) => {
+        console.log(results);
+        if(err) throw err;
+        res.render('galerias', {
+            titulo: 'GALERIAS',
+            results,
+        }) 
+    })
 })
+
+app.post('/update', (req, res) =>{
+    console.log(req.body.idmensajes);
+    console.log(req.body.asunto);
+    console.log(req.body.mensaje);
+    
+    let sql = "UPDATE MENSAJES SET asunto='" + req.body.asunto + "', mensaje= '" + req.body.mensaje + "' WHERE idmensajes=" + req.body.idmensajes;
+    let query = conexion.query(sql, (err, results) => {
+        console.log(results);
+        if(err) throw err;
+        res.redirect('/')
+    })
+})
+app.post('/delete', (req, res) =>{
+    console.log(req.body.idmensajes);
+    
+    let sql = "DELETE FROM MENSAJES WHERE idmensajes= '" + req.body.idmensajes + "'";
+    let query = conexion.query(sql, (err, results) => {
+        console.log(results);
+        if(err) throw err;
+        res.redirect('/')
+    })
+})
+
+// app.post('/mail', (req, res =>){
+
+//     const {usuario, email} = req.body;
+//     console.log(usuario);
+//     console.log(email);
+
+//     if(usuario == ""||email == ""){
+//         let validacion = "Faltan datos";
+//         res.render('mail', {
+//             titulo: 'envia un mail',
+//             validacion
+//         })
+//     }else{
+//         console.log(usuario);
+//         console.log(email);
+
+//         async function main(){
+//             let transporter = nodemailer.createTransport({
+//                 host: 'smtp.gmail.com',
+//                 port: '465',
+//                 secure: 'true',
+//                 auth:{
+//                     user: 'juersierra@gmail.com',
+//                     password: 'cnktbshzdllmrtif',
+//                 }
+//             })
+
+//             let info = await transporter.sendMail({
+//                 from: 'juersierra@gmail.com',
+//             })
+//         }
+//         res.render('index',{
+//             titulo:'bienvenido a nuestra app',
+//             to: `${email}`,
+//             subject: 'Gracias por tu compra',
+//             html: `Gracias por confiar en nosotros para la compra de un lavarropas`,
+//         })
+//     }
+    
+    
+// })
+
 app.get('/contacto', (req, res)=>{
     res.render('contacto', {titulo: 'CONTACTANOS'})
 })
@@ -68,7 +134,7 @@ app.post('/contacto', (req, res) =>{
     // console.log(req.body.asunto);    
     // console.log(req.body.mensaje);
     const {nombre, asunto, email, mensaje} = req.body;
-    if (req.body.nombre == ""){
+    if (req.body.nombre == "" || req.body.email == ""){
         let validacion = "Faltan datos"
         res.render('contacto', {
             titulo: 'CONTACTANOS',
@@ -84,13 +150,13 @@ app.post('/contacto', (req, res) =>{
             mensaje: mensaje,
         }
         let sql = "INSERT INTO MENSAJES SET ?";
-        // let query = conexion.query(sql, data, (err, results) => {
-        //     if(err) throw err;
-        //     res.render('contacto', {
-        //         titulo: 'CONTACTANOS',
-        //         validacion
-        //     }) 
-        // })
+        let query = conexion.query(sql, data, (err, results) => {
+            if(err) throw err;
+            res.render('contacto', {
+                titulo: 'CONTACTANOS',
+                validacion
+            }) 
+        })
         
     }
 })
@@ -102,3 +168,4 @@ app.listen(PORT, () =>{
 app.on('error', (error) =>{
     console.log(`tenemos un error`);
 })
+ 

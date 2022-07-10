@@ -7,7 +7,7 @@
     <div class="container">
         <div class="text-center m-5">
             <h2>Lista de mensajes</h2>
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover" id="mytable">
                 <thead>
                     <tr>
                         <th>ID MENSAJE</th>
@@ -25,10 +25,141 @@
                         <td>{{email}}</td>
                         <td>{{asunto}}</td>
                         <td>{{mensaje}}</td>
+                        <td>
+                            <a href="javascript:void(0);" type="button" class="btn btn-info edit" data-bs-toggle="modal" data-bs-target="#EditModal" data-idmensajes="{{ idmensajes}}" data-nombre="{{nombre}}" data-email="{{ email}}" data-asunto="{{ asunto}}" data-mensaje="{{ mensaje}}">Editar mensaje y asunto</a>
+                            <a href="javascript:void(0);" type="button" class="btn btn-danger delete" data-bs-toggle="modal" data-bs-target="#DeleteModal" data-idmensajes="{{ idmensajes}}">Eliminar msj</a>
+                        </td>
                     </tr>
                     {{/each}}
                 </tbody>
             </table>
-        </div>
+        </div>   
     </div>
 </div>
+
+
+
+{{!-- AÑADIR Modal --}}
+
+
+{{!-- /EDITAR  --}}
+<form action="/update" method="post">
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ModalLabel">Editar mensaje</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="inputNombre" class="form-label border-top border-bottom">Nombre</label>
+                        <input type="text" class="form-control nombre" name="nombre" id="inputNombre" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputEmail" class="form-label border-top border-bottom">Email</label>
+                        <input type="email" class="form-control email" name="email" id="inputEmail" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputAsunto" class="form-label border-top border-bottom">Asunto</label>
+                        <input type="text" class="form-control asunto" name="asunto" id="inputAsunto">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputMensaje" class="form-label border-top border-bottom">Mensaje</label>
+                        <input type="text" class="form-control mensaje" name="mensaje" id="inputMensaje"></input>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="idmensajes" class="idmensajes">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Editar mensaje</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form action="/delete" method="post">
+    <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Borrar Mensaje ID</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <strong>¿Estás seguro de borrar este elemento?</strong>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="idmensajes" class="idmensajes">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Eliminar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="/js/jquery-3.3.1.js"></script>
+
+<script>
+/*var exampleModal = document.getElementById('EditModal')
+exampleModal.addEventListener('show.bs.modal', function (event) {
+  // Button that triggered the modal
+  var button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  var id = button.getAttribute('data-id')
+  var nombre = button.getAttribute('data-nombre')
+  var email = button.getAttribute('data-email')
+  var asunto = button.getAttribute('data-asunto')
+  var mensaje = button.getAttribute('data-mensaje')
+
+  // If necessary, you could initiate an AJAX request here
+  // and then do the updating in a callback.
+  //
+  // Update the modal's content.
+  var modalTitle = exampleModal.querySelector('.modal-title')
+  var modalInputNombre = exampleModal.querySelector('#inputNombre')
+  var modalInputEmail = exampleModal.querySelector('#inputEmail')
+  var modalInputAsunto = exampleModal.querySelector('#inputAsunto')
+  var modalInputMensaje = exampleModal.querySelector('#inputMensaje')
+
+  modalTitle.textContent = 'Editar mensaje ID=' + id
+  modalInputNombre.value = nombre
+  modalInputEmail.value = email
+  modalInputAsunto.value = asunto
+  modalInputMensaje.value = mensaje
+})*/
+    $(document).ready(function(){
+        //Mostrar datos al modal para editar registro
+        $('#mytable').on('click', '.edit', function(){
+            let idmensajes = $(this).data('idmensajes');
+            let asunto = $(this).data('asunto');
+            let mensaje = $(this).data('mensaje');
+            $('#EditModal').modal('show');
+            $('#ModalLabel').html(`Editar el mensaje ID = ${idmensajes}`);
+            $('.idmensajes').val(idmensajes);
+            $('.asunto').val(asunto);
+            $('.mensaje').val(mensaje);
+            $('.nombre').val($(this).data('nombre'));
+            $('.email').val($(this).data('email'));
+            $("#inputNombre").attr("value", nombre);
+            $("#inputEmail").attr("value", email);
+            $("#inputAsunto").attr("value", asunto);
+            $("#inputMensaje").attr("value", mensaje);
+        })
+
+        $('#mytable').on('click', '.delete', function(){
+            let idmensajes = $(this).data('idmensajes');
+            $('#DeleteModal').modal('show');
+            $('.idmensajes').val(idmensajes);
+            $('#ModalLabel').html(`Eliminar el mensaje ID = ${idmensajes}`);
+        })
+        //Modal DELETE     
+        /*$('#mytable').on('click', '.delete', function(){
+                let producto_id = $(this).data('id');
+                $('#DeleteModal').modal('show');
+                $('.producto_id2').val(producto_id);
+            })*/
+    })
+</script>
